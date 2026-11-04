@@ -1,4 +1,4 @@
-# set-my-emacs Hello
+# set-my-emacs
 
 My personal Emacs configuration, split into modules, for Debian Linux.
 
