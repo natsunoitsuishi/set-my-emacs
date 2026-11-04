@@ -1,68 +1,68 @@
 # set-my-emacs
 
-我的个人 Emacs 配置,按模块拆分,适用于 Debian Linux。
+My personal Emacs configuration, split into modules, for Debian Linux.
 
-## 目录结构
+## Directory Structure
 
 ```
 .
-├── early-init.el      # 启动早期设置(GUI 元素、包管理优化等)
-├── init.el            # 入口,加载 lisp/ 下的各模块
-├── custom.el          # Emacs Customize 自动生成的设置
+├── early-init.el      # Early startup settings (GUI elements, package manager tweaks, etc.)
+├── init.el            # Entry point, loads the modules under lisp/
+├── custom.el          # Settings generated automatically by Emacs Customize
 └── lisp/
-    ├── init-packages.el     # 包管理
-    ├── init-ui.el           # 外观:字体、主题、行号
-    ├── init-editor.el       # 编辑器基础设置
-    ├── init-keys.el         # 快捷键
-    ├── init-completion.el   # 补全
-    ├── init-prog.el         # 通用编程设置
+    ├── init-packages.el     # Package management
+    ├── init-ui.el           # Appearance: font, theme, line numbers
+    ├── init-editor.el       # Basic editor settings
+    ├── init-keys.el         # Key bindings
+    ├── init-completion.el   # Completion
+    ├── init-prog.el         # General programming settings
     ├── init-c.el            # C / C++
     ├── init-rust.el         # Rust
-    └── init-asm.el          # 汇编
+    └── init-asm.el          # Assembly
 ```
 
-## 安装
+## Installation
 
-需要 Emacs 29 或更高版本。
+Requires Emacs 29 or later.
 
 ```bash
-# 如果已有 ~/.emacs.d,先备份
+# If you already have ~/.emacs.d, back it up first
 mv ~/.emacs.d ~/.emacs.d.bak
 
-git clone <仓库地址> ~/.emacs.d
+git clone <repository-url> ~/.emacs.d
 ```
 
-首次启动时会自动下载所需的包,请保持网络畅通并稍等片刻。
+On first launch, the required packages are downloaded automatically. Please make sure you have a working network connection and wait a moment.
 
-> `elpa/`、`eln-cache/` 等自动生成的内容已在 `.gitignore` 中排除,不会上传。
+> Auto-generated content such as `elpa/` and `eln-cache/` is excluded via `.gitignore` and is not uploaded.
 
-## 字体:Iosevka
+## Font: Iosevka
 
-默认使用 [Iosevka](https://github.com/be5invis/Iosevka),需要先安装到系统。
+This config uses [Iosevka](https://github.com/be5invis/Iosevka) by default. It must be installed on your system first.
 
-### 1. 下载
+### 1. Download
 
-打开 <https://github.com/be5invis/Iosevka/releases>,在最新版本的 Assets 中下载:
+Open <https://github.com/be5invis/Iosevka/releases> and download one of the following from the Assets of the latest release:
 
-- `PkgTTC-Iosevka-<版本号>.zip`:普通 Iosevka,无衬线,等宽(推荐)
-- `PkgTTC-IosevkaSlab-<版本号>.zip`:等宽衬线版
+- `PkgTTC-Iosevka-<version>.zip`: regular Iosevka, sans-serif, monospaced (recommended)
+- `PkgTTC-IosevkaSlab-<version>.zip`: monospaced slab-serif variant
 
-例如 v34.9.1:
+For example, v34.9.1:
 
 ```bash
 cd ~/Downloads
 wget https://github.com/be5invis/Iosevka/releases/download/v34.9.1/PkgTTC-Iosevka-34.9.1.zip
 ```
 
-校验(可选),结果应为 `ecc4e30d932ffb862ef3a92745d4e88d09151d06bfe3a68aa3bd4758822590d7`:
+Verify the checksum (optional). The result should be `ecc4e30d932ffb862ef3a92745d4e88d09151d06bfe3a68aa3bd4758822590d7`:
 
 ```bash
 sha256sum PkgTTC-Iosevka-34.9.1.zip
 ```
 
-### 2. 安装
+### 2. Install
 
-仅当前用户使用(无需 sudo):
+For the current user only (no sudo required):
 
 ```bash
 mkdir -p ~/.local/share/fonts/Iosevka
@@ -70,7 +70,7 @@ unzip PkgTTC-Iosevka-34.9.1.zip -d ~/.local/share/fonts/Iosevka
 fc-cache -fv
 ```
 
-所有用户使用:
+For all users:
 
 ```bash
 sudo mkdir -p /usr/local/share/fonts/Iosevka
@@ -78,17 +78,17 @@ sudo unzip PkgTTC-Iosevka-34.9.1.zip -d /usr/local/share/fonts/Iosevka
 sudo fc-cache -fv
 ```
 
-### 3. 验证
+### 3. Verify
 
 ```bash
 fc-list | grep -i "iosevka"
 ```
 
-有输出即安装成功,字体族名为 `Iosevka`。
+If there is output, the installation succeeded. The font family name is `Iosevka`.
 
-### 4. 在 Emacs 中使用
+### 4. Use it in Emacs
 
-`lisp/init-ui.el` 中的字体设置:
+Font settings in `lisp/init-ui.el`:
 
 ```elisp
 (set-face-attribute 'default nil
@@ -96,10 +96,10 @@ fc-list | grep -i "iosevka"
                     :height 120)
 ```
 
-如果想用其他变体,把 `:family` 改成对应的族名即可,例如 `"Iosevka Slab"`。安装后需要重启 Emacs(daemon 模式要重启 daemon)。
+To use another variant, change `:family` to the corresponding family name, e.g. `"Iosevka Slab"`. Restart Emacs after installing the font (restart the daemon if you run Emacs in daemon mode).
 
-在 Emacs 里可以用 `M-x describe-font` 确认当前使用的字体。
+In Emacs, you can run `M-x describe-font` to confirm which font is currently in use.
 
-## 许可
+## License
 
-自用配置,随意参考。
+Personal configuration. Feel free to use it as a reference.
