@@ -11,7 +11,7 @@
     (when (and (display-graphic-p)
                (find-font (font-spec :family "Iosevka")))
       (set-face-attribute 'default nil
-                          :family "Iosevka Slab"
+                          :family "Iosevka"
                           :height 120))))
 (if (daemonp)
     (add-hook 'after-make-frame-functions #'my/set-font)
