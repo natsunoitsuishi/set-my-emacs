@@ -1,0 +1,38 @@
+# 自动下载的包
+/elpa/
+/straight/
+/quelpa/
+
+# 原生编译缓存
+/eln-cache/
+
+# 自动生成的数据 / 缓存
+/auto-save-list/
+/transient/
+/tramp
+/url/
+/eshell/
+/network-security.data
+/request/
+/semantic.cache
+/session.*
+/.cache/
+/.lsp-session-v1
+/projectile-bookmarks.eld
+/projectile.cache
+/recentf
+/savehist
+/saveplace
+/history
+/bookmarks
+/places
+/ido.last
+
+# 备份 / 临时文件
+*~
+\#*\#
+.\#*
+*.elc
+
+# 系统文件
+.DS_Store
